@@ -33,7 +33,7 @@ $(document).ready(() => {
 
   $("video").on("canplaythrough", function () {
     let current = getCurrentEpisode();
-    if (time != 0) $("video")[0].currentTime = current.time || 0;
+    if (current.time) $("video")[0].currentTime = current.time;
   });
 });
 
