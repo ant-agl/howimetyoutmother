@@ -30,10 +30,12 @@ $(document).ready(() => {
     saveEpisode(season, episode, time);
   }, 1000);
 
-  $("video").on("play", function () {
-    console.log("123");
-    let current = getCurrentEpisode();
-    if (current.time) $("video")[0].currentTime = current.time;
+  $("video").on("canplaythrough", function () {
+    if ($(this).data("load") != "1") {
+      $(this).data("load", 1);
+      let current = getCurrentEpisode();
+      if (current.time) $("video")[0].currentTime = current.time;
+    }
   });
 });
 
