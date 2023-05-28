@@ -3,26 +3,25 @@ $(document).ready(() => {
   updateEpisodesBtns(current.season, current.episode);
   updateVideo(current.season, current.episode, current.time || 0);
 
-  $(".seasons .btn-secondary, .episodes .btn-secondary").on(
-    "click",
-    function () {
-      $(this)
-        .parent()
-        .find(".btn")
-        .removeClass("btn-primary")
-        .addClass("btn-secondary");
-      $(this).removeClass("btn-secondary").addClass("btn-primary");
+  $(".seasons, .episodes").on("click", ".btn-secondary", function () {
+    $(this)
+      .parent()
+      .find(".btn")
+      .removeClass("btn-primary")
+      .addClass("btn-secondary");
+    $(this).removeClass("btn-secondary").addClass("btn-primary");
 
-      let season = $(".seasons .btn-primary").text().trim();
-      let episode = $(".episodes .btn-primary").text().trim();
+    let season = $(".seasons .btn-primary").text().trim();
+    let episode = $(".episodes .btn-primary").text().trim();
 
-      if ($(this).parent().hasClass("seasons"))
-        updateEpisodesBtns(season, episode);
-
-      updateVideo(season, episode, 0);
-      saveEpisode(season, episode, 0);
+    if ($(this).parent().hasClass("seasons")) {
+      episode = 1;
+      updateEpisodesBtns(season, episode);
     }
-  );
+
+    updateVideo(season, episode, 0);
+    saveEpisode(season, episode, 0);
+  });
 
   let updateCurrent = setInterval(() => {
     let season = $(".seasons .btn-primary").text().trim();
@@ -31,7 +30,8 @@ $(document).ready(() => {
     saveEpisode(season, episode, time);
   }, 1000);
 
-  $("video").on("canplaythrough", function () {
+  $("video").on("play", function () {
+    console.log("123");
     let current = getCurrentEpisode();
     if (current.time) $("video")[0].currentTime = current.time;
   });
