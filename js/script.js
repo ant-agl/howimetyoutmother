@@ -1,7 +1,7 @@
 $(document).ready(() => {
   let current = getCurrentEpisode();
   updateEpisodesBtns(current.season, current.episode);
-  updateVideo(current.season, current.episode, current.time);
+  updateVideo(current.season, current.episode, current.time || 0);
 
   $(".seasons .btn-secondary, .episodes .btn-secondary").on(
     "click",
