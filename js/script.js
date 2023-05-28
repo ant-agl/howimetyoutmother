@@ -39,7 +39,7 @@ $(document).ready(() => {
     let episode = $(".episodes .btn-primary").text().trim();
     let time = $("video")[0].currentTime;
     log("saveInterval" + time);
-    saveEpisode(season, episode, time);
+    if (time != 0) saveEpisode(season, episode, time);
   }, 1000);
 
   $("video").on("canplaythrough", function () {
