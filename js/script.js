@@ -18,7 +18,9 @@ $(document).ready(() => {
 
       if ($(this).parent().hasClass("seasons"))
         updateEpisodesBtns(season, episode);
+
       updateVideo(season, episode, 0);
+      saveEpisode(season, episode, 0);
     }
   );
 
@@ -26,9 +28,13 @@ $(document).ready(() => {
     let season = $(".seasons .btn-primary").text().trim();
     let episode = $(".episodes .btn-primary").text().trim();
     let time = $("video")[0].currentTime;
-    time = time > 5 ? time - 5 : 0;
     saveEpisode(season, episode, time);
   }, 1000);
+
+  $("video").on("canplaythrough", function () {
+    let current = getCurrentEpisode();
+    if (time != 0) $("video")[0].currentTime = current.time || 0;
+  });
 });
 
 const countEpisodes = {
@@ -54,13 +60,10 @@ function updateEpisodesBtns(season, episode = 1) {
   $(".episodes").html(html);
 }
 
-function updateVideo(season, episode, time = 0) {
+function updateVideo(season, episode) {
   $("video")
     .attr("src", getSrc(season, episode))
-    .attr("poster", getPoster(season, episode))
-    .on("canplaythrough", function () {
-      if (time != 0) $("video")[0].currentTime = time;
-    });
+    .attr("poster", getPoster(season, episode));
 }
 
 function getSrc(season, episode) {
