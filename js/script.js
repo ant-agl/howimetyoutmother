@@ -21,6 +21,7 @@ $(document).ready(() => {
     }
 
     updateVideo(season, episode, 0);
+    alert("save click" + time);
     saveEpisode(season, episode, 0);
   });
 
@@ -37,6 +38,7 @@ $(document).ready(() => {
     let season = $(".seasons .btn-primary").text().trim();
     let episode = $(".episodes .btn-primary").text().trim();
     let time = $("video")[0].currentTime;
+    alert("saveInterval" + time);
     saveEpisode(season, episode, time);
   }, 1000);
 
@@ -111,7 +113,6 @@ function getCurrentEpisode() {
 }
 
 function saveEpisode(season, episode, time) {
-  alert("save " + time);
   setCookie("season", season);
   setCookie("episode", episode);
   setCookie("time", time);
