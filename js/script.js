@@ -35,6 +35,7 @@ $(document).ready(() => {
       $(this).data("load", 1);
       let current = getCurrentEpisode();
       current.time = current.time > 5 ? current.time - 5 : 0;
+      alert("current.time " + current.time);
       if (current.time) {
         $("video")[0].currentTime = current.time;
       }
@@ -55,6 +56,15 @@ const countEpisodes = {
 };
 
 function updateEpisodesBtns(season, episode = 1) {
+  $(".seasons")
+    .find(".btn")
+    .removeClass("btn-primary")
+    .addClass("btn-secondary");
+  $(`.seasons .btn`)
+    .eq(season - 1)
+    .removeClass("btn-secondary")
+    .addClass("btn-primary");
+
   let html = "";
   for (let i = 0; i < countEpisodes[season]; i++) {
     html += `<button class="btn ${
