@@ -23,7 +23,16 @@ $(document).ready(() => {
     saveEpisode(season, episode, 0);
   });
 
+  $("video").on("play", function () {
+    $(this).data("play", 1);
+  });
+  $("video").on("pause", function () {
+    $(this).data("play", 0);
+  });
+
   setInterval(() => {
+    if ($("video").data("play") != 1) return;
+
     let season = $(".seasons .btn-primary").text().trim();
     let episode = $(".episodes .btn-primary").text().trim();
     let time = $("video")[0].currentTime;
