@@ -111,6 +111,7 @@ function getCurrentEpisode() {
 }
 
 function saveEpisode(season, episode, time) {
+  alert("save " + time);
   setCookie("season", season);
   setCookie("episode", episode);
   setCookie("time", time);
