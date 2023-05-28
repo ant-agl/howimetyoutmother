@@ -31,6 +31,7 @@ $(document).ready(() => {
   });
 
   setInterval(() => {
+    alert("play", $("video").data("play"));
     if ($("video").data("play") != 1) return;
 
     let season = $(".seasons .btn-primary").text().trim();
