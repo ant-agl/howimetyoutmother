@@ -34,7 +34,10 @@ $(document).ready(() => {
     if ($(this).data("load") != "1") {
       $(this).data("load", 1);
       let current = getCurrentEpisode();
-      if (current.time) $("video")[0].currentTime = current.time;
+      current.time = current.time > 5 ? current.time - 5 : 0;
+      if (current.time) {
+        $("video")[0].currentTime = current.time;
+      }
     }
   });
 });
