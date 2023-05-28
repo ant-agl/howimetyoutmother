@@ -1,7 +1,8 @@
 $(document).ready(() => {
   let current = getCurrentEpisode();
   updateEpisodesBtns(current.season, current.episode);
-  updateVideo(current.season, current.episode, current.time || 0);
+  alert("load current.time " + current.time);
+  updateVideo(current.season, current.episode);
 
   $(".seasons, .episodes").on("click", ".btn-secondary", function () {
     $(this)
@@ -31,7 +32,6 @@ $(document).ready(() => {
   });
 
   setInterval(() => {
-    alert("play", $("video").data("play"));
     if ($("video").data("play") != 1) return;
 
     let season = $(".seasons .btn-primary").text().trim();
