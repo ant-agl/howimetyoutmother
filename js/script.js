@@ -23,7 +23,7 @@ $(document).ready(() => {
     saveEpisode(season, episode, 0);
   });
 
-  let updateCurrent = setInterval(() => {
+  setInterval(() => {
     let season = $(".seasons .btn-primary").text().trim();
     let episode = $(".episodes .btn-primary").text().trim();
     let time = $("video")[0].currentTime;
@@ -104,10 +104,16 @@ function getCookie(name) {
         "=([^;]*)"
     )
   );
-  return matches ? decodeURIComponent(matches[1]) : undefined;
+  return matches
+    ? decodeURIComponent(matches[1])
+    : localStorage[name]
+    ? localStorage[name]
+    : undefined;
 }
 
 function setCookie(name, value, options = {}) {
+  localStorage[name] = value;
+
   options = {
     path: "/",
     "max-age": 3600 * 365,
