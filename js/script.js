@@ -1,7 +1,6 @@
 $(document).ready(() => {
   let current = getCurrentEpisode();
   updateEpisodesBtns(current.season, current.episode);
-  log("load current.time " + current.time);
   updateVideo(current.season, current.episode);
 
   $(".seasons, .episodes").on("click", ".btn-secondary", function () {
@@ -21,7 +20,6 @@ $(document).ready(() => {
     }
 
     updateVideo(season, episode, 0);
-    log("save click" + time);
     saveEpisode(season, episode, 0);
   });
 
@@ -38,7 +36,6 @@ $(document).ready(() => {
     let season = $(".seasons .btn-primary").text().trim();
     let episode = $(".episodes .btn-primary").text().trim();
     let time = $("video")[0].currentTime;
-    log("saveInterval " + time);
     if (time != 0) saveEpisode(season, episode, time);
   }, 1000);
 
@@ -47,7 +44,6 @@ $(document).ready(() => {
       $(this).data("load", 1);
       let current = getCurrentEpisode();
       current.time = current.time > 5 ? current.time - 5 : 0;
-      log("current.time " + current.time);
       if (current.time) {
         $("video")[0].currentTime = current.time;
       }
