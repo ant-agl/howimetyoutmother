@@ -38,7 +38,7 @@ $(document).ready(() => {
     let season = $(".seasons .btn-primary").text().trim();
     let episode = $(".episodes .btn-primary").text().trim();
     let time = $("video")[0].currentTime;
-    log("saveInterval" + time);
+    log("saveInterval " + time);
     if (time != 0) saveEpisode(season, episode, time);
   }, 1000);
 
