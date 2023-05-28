@@ -1,7 +1,7 @@
 $(document).ready(() => {
   let current = getCurrentEpisode();
   updateEpisodesBtns(current.season, current.episode);
-  alert("load current.time " + current.time);
+  log("load current.time " + current.time);
   updateVideo(current.season, current.episode);
 
   $(".seasons, .episodes").on("click", ".btn-secondary", function () {
@@ -21,7 +21,7 @@ $(document).ready(() => {
     }
 
     updateVideo(season, episode, 0);
-    alert("save click" + time);
+    log("save click" + time);
     saveEpisode(season, episode, 0);
   });
 
@@ -38,7 +38,7 @@ $(document).ready(() => {
     let season = $(".seasons .btn-primary").text().trim();
     let episode = $(".episodes .btn-primary").text().trim();
     let time = $("video")[0].currentTime;
-    alert("saveInterval" + time);
+    log("saveInterval" + time);
     saveEpisode(season, episode, time);
   }, 1000);
 
@@ -47,7 +47,7 @@ $(document).ready(() => {
       $(this).data("load", 1);
       let current = getCurrentEpisode();
       current.time = current.time > 5 ? current.time - 5 : 0;
-      alert("current.time " + current.time);
+      log("current.time " + current.time);
       if (current.time) {
         $("video")[0].currentTime = current.time;
       }
@@ -164,4 +164,8 @@ function deleteCookie(name) {
   setCookie(name, "", {
     "max-age": -1,
   });
+}
+
+function log(text) {
+  $(".log").html($(".log").html() + text + "<br>");
 }
