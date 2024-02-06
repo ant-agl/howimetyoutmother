@@ -29,6 +29,19 @@ $(document).ready(() => {
   $("video").on("pause", function () {
     $(this).data("play", 0);
   });
+  $("video").on("timeupdate", function (e) {
+    let time = this.currentTime;
+    let duration = this.duration;
+    if (duration - time > 26) return;
+
+    next();
+    setTimeout(() => {
+      $("video").one("canplay", function () {
+        console.log("canplay");
+        $("video").trigger("play");
+      });
+    });
+  });
 
   setInterval(() => {
     if ($("video").data("play") != 1) return;
@@ -102,9 +115,9 @@ function getPoster(season, episode) {
 
 function getCurrentEpisode() {
   return {
-    season: getCookie("season") || 1,
-    episode: getCookie("episode") || 1,
-    time: getCookie("time") || 0,
+    season: Number(getCookie("season")) || 1,
+    episode: Number(getCookie("episode")) || 1,
+    time: Number(getCookie("time")) || 0,
   };
 }
 
@@ -165,3 +178,40 @@ function deleteCookie(name) {
 function log(text) {
   $(".log").html($(".log").html() + text + "<br>");
 }
+
+function prev() {
+  let current = getCurrentEpisode();
+  current.episode -= 1;
+
+  if (current.episode < 1) {
+    current.season -= 1;
+    if (current.season < 1) current.episode = 1;
+    else current.episode = countEpisodes[current.season];
+  }
+
+  updateEpisodesBtns(current.season, current.episode);
+  updateVideo(current.season, current.episode, 0);
+  saveEpisode(current.season, current.episode, 0);
+}
+
+function next() {
+  let current = getCurrentEpisode();
+  current.episode += 1;
+
+  if (current.episode > countEpisodes[current.season]) {
+    current.season += 1;
+    current.episode = 1;
+  }
+
+  if (current.season > 9) {
+    current.season = 9;
+    current.episode = countEpisodes[current.season];
+  }
+
+  updateEpisodesBtns(current.season, current.episode);
+  updateVideo(current.season, current.episode, 0);
+  saveEpisode(current.season, current.episode, 0);
+}
+
+$(".btn-prev").on("click", prev);
+$(".btn-next").on("click", next);
