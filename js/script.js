@@ -106,11 +106,13 @@ function getSrc(season, episode) {
   if (season < 10) season = "0" + season;
   if (episode < 10) episode = "0" + episode;
 
-  return `https://himym.mp4club.top/How.I.Met.Your.Mother.s${season}e${episode}.HowIMetSerial.ru.mp4`;
+  // источник
+  // https://vashumamu-tv.ru/seasons/season-1/episode-1
+  return `https://v.vashumamu-tv.ru/How.I.Met.Your.Mother.s${season}e${episode}.VashuMamu.top.mp4`;
 }
 
 function getPoster(season, episode) {
-  return `https://vashumamu.top/sites/default/files/styles/online/public/episode/how-i-met-your-mother-season-${season}-episode-${episode}.jpg`;
+  return `https://vashumamu-tv.ru/images/posters/how-i-met-your-mother-season-${season}-episode-${episode}-poster.jpg`;
 }
 
 function getCurrentEpisode() {
