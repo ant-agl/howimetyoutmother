@@ -32,8 +32,9 @@ $(document).ready(() => {
   $("video").on("timeupdate", function (e) {
     let time = this.currentTime;
     let duration = this.duration;
-    if (duration - time > 26) return;
+    if (!duration || duration - time > 26) return;
 
+    console.log("timeupdate");
     next();
     setTimeout(() => {
       $("video").one("canplay", function () {
@@ -216,4 +217,7 @@ function next() {
 }
 
 $(".btn-prev").on("click", prev);
-$(".btn-next").on("click", next);
+$(".btn-next").on("click", () => {
+  console.log("btn-next");
+  next();
+});
